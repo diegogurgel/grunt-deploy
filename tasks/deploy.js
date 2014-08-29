@@ -23,6 +23,8 @@
 
     var options = self.options();
 
+    options.local_path = options.local_path || '.';
+
     var connections = [];
 
 
@@ -69,7 +71,7 @@
           var execLocal = require('child_process').exec;
           var child;
           
-          child = execLocal("scp -r ./dist/ " + server.username + "@" + server.host + ":" + options.deploy_path + "/releases/" + timeStamp, function (error, stdout, stderr) {
+          child = execLocal("scp -r "+options.local_path+' '+ server.username + "@" + server.host + ":" + options.deploy_path + "/releases/" + timeStamp, function (error, stdout, stderr) {
             console.log('end deploy');
 
             console.log('executing cmds after deploy');
